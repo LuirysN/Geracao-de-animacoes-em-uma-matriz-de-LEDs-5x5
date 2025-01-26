@@ -40,6 +40,9 @@ int main() {
         if (key == 'B' || key == 'b') {
             printf("Tecla B pressionada. Acionando LEDs em azul.\n");
             set_leds_blue(pio, sm); // Liga os LEDs na cor azul
+        } else if (key == 'C' || key == 'c') {
+            printf("Tecla C pressionada. Acionando LEDs em vermelho com 80%% de intensidade.\n");
+            set_leds_red_80(pio, sm); // Liga os LEDs na cor vermelha com 80% de intensidade
         }
     }
 
