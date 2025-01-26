@@ -5,11 +5,21 @@
 #define LED_PIN 14        // Pino conectado à matriz de LEDs WS2812
 #define NUM_LEDS 25       // Número total de LEDs na matriz 5x5
 #define BRIGHTNESS 255    // Intensidade máxima dos LEDs
+#define BRIGHTNESS_80 204 // 80% da intensidade máxima
 
+// Função para configurar os LEDs na cor azul
 void set_leds_blue(PIO pio, uint sm) {
     uint32_t blue_color = (BRIGHTNESS << 8); // RGB: Azul = 0x0000FF, codificado como GGRRBB
     for (int i = 0; i < NUM_LEDS; i++) {
         pio_sm_put_blocking(pio, sm, blue_color << 8); // Envia cor azul para todos os LEDs
+    }
+}
+
+// Função para configurar os LEDs na cor vermelha com 80% de intensidade
+void set_leds_red_80(PIO pio, uint sm) {
+    uint32_t red_color = ((BRIGHTNESS_80) << 16); // RGB: Vermelho = 0xFF0000, codificado como GGRRBB
+    for (int i = 0; i < NUM_LEDS; i++) {
+        pio_sm_put_blocking(pio, sm, red_color << 8); // Envia cor vermelha para todos os LEDs
     }
 }
 
