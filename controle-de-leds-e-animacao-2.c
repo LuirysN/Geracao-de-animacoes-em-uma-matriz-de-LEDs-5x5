@@ -44,10 +44,10 @@ void set_leds_blue(PIO pio, uint sm) {
 }
 
 // Função para configurar os LEDs na cor vermelha com 80% de intensidade
-void set_leds_red_80(PIO pio, uint sm) {
-    uint32_t red_color = ((BRIGHTNESS_80) << 16); // RGB: Vermelho = 0xFF0000, codificado como GGRRBB
+void set_leds_red(PIO pio, uint sm) {
+    uint32_t red_color = (BRIGHTNESS << 16); // RGB: Vermelho = 0xFF0000
     for (int i = 0; i < NUM_LEDS; i++) {
-        pio_sm_put_blocking(pio, sm, red_color << 8); // Envia cor vermelha para todos os LEDs
+        pio_sm_put_blocking(pio, sm, (red_color * 0.8) << 8); // Envia cor vermelha a 80% da intensidade
     }
 }
 
