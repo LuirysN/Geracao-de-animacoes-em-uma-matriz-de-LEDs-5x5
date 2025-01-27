@@ -1,5 +1,5 @@
 [wokwi]
 version = 1
-firmware = 'build/controle-de-leds-e-animacao-2.uf2'
-elf = 'build/controle-de-leds-e-animacao-2.elf'
-gdbServerPort=3333
+firmware = 'build/pio_matrix.uf2'
+elf = 'build/pio_matrix.elf'
+
