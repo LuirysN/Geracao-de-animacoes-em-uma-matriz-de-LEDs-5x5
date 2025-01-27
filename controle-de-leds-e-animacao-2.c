@@ -1,3 +1,5 @@
+//ATIVIDADE PARA GERAR ANIMAÇÃO NA PLACA BITDOGLAB
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
