@@ -9,33 +9,34 @@
 #include "pio_matrix.pio.h"
 
 
-#define NUM_PIXELS 25
-#define OUT_PIN 7
-#define NUM_PADROES 14
-#define FPS 10
-#define FRAME_TIME (5000/FPS)
-#define FRAMES_PER_ANIMATION 5
-#define TRANSITION_TIME 1000
+#define NUM_PIXELS 25 // define o número de pixels na matriz
+#define OUT_PIN 7 // define o pino de saída do pio
+#define NUM_PADROES 14 // define o número de padrões de animação
+#define FPS 10 // define a taxa de quadros por segundo
+#define FRAME_TIME (5000/FPS) // define o tempo de cada quadro
+#define FRAMES_PER_ANIMATION 5 // define o número de quadros por animação
+#define TRANSITION_TIME 1000 // define o tempo de transição entre animações
 
-
+// Declaração de funções
 typedef struct {
-    double frames[FRAMES_PER_ANIMATION][25];
+    double frames[FRAMES_PER_ANIMATION][25]; // matriz de frames
     double r, g, b;
 } Animacao;
 
-
+// Inicialização de funções
 static Animacao animacoes[NUM_PADROES];
-static uint8_t padrao_atual = 0;
-static uint8_t frame_atual = 0;
-static absolute_time_t proximo_frame;
+static uint8_t padrao_atual = 0; // define o padrão atual
+static uint8_t frame_atual = 0; // define o quadro atual
+static absolute_time_t proximo_frame;  // define o próximo quadro
 
 
+// função para inicializar a matriz de animações
 void imprimir_binario(int num) {
     for (int i = 31; i >= 0; i--) {
         (num & (1 << i)) ? printf("1") : printf("0");
     }
 }
-
+// Função para inicializar a matriz de animações de acordo com o padrão
 uint32_t matrix_rgb(double b, double r, double g) {
     unsigned char R = r * 255;
     unsigned char G = g * 255;
@@ -43,7 +44,8 @@ uint32_t matrix_rgb(double b, double r, double g) {
     return (G << 24) | (R << 16) | (B << 8);
 }
 
-
+// Função para inicializar a matriz de animações de acordo com o padrão
+//função para inicializar os frames do quadrado
 void init_quadrado(int index) {
     // Frame 1 - Apenas os cantos
     double frame1[25] = {
@@ -143,7 +145,7 @@ void init_x(int index) {
         0.0, 1.0, 0.0, 1.0, 0.0,
         1.0, 0.0, 0.0, 0.0, 1.0
     };
-    // Frames similares para as outras animações...
+   // Copia os frames para a matriz de animações
     memcpy(animacoes[index].frames[0], frame1, sizeof(frame1));
     memcpy(animacoes[index].frames[1], frame2, sizeof(frame2));
     memcpy(animacoes[index].frames[2], frame3, sizeof(frame3));
@@ -196,7 +198,7 @@ void init_diamante(int index) {
         1.0, 0.0, 0.0, 0.0, 1.0,
         1.0, 1.0, 1.0, 1.0, 1.0
     };
-
+    // Copia os frames para a matriz de animações
     memcpy(animacoes[index].frames[0], frame1, sizeof(frame1));
     memcpy(animacoes[index].frames[1], frame2, sizeof(frame2));
     memcpy(animacoes[index].frames[2], frame3, sizeof(frame3));
@@ -206,7 +208,6 @@ void init_diamante(int index) {
 
 
 // Função para inicializar os frames do círculo
-
 void init_circulo(int index) {
     // Frame 1 - Círculo inicial
     double frame1[25] = {
@@ -261,7 +262,6 @@ void init_circulo(int index) {
 }
 
 // Função para inicializar os frames do triângulo
-
 void init_triangulo(int index) {
     // Frame 1 - 5% intensidade
     double frame1[25] = {
@@ -314,7 +314,7 @@ void init_triangulo(int index) {
     memcpy(animacoes[index].frames[3], frame4, sizeof(frame4));
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
-
+// Função para inicializar os frames do coração
 void init_coracao(int index) {
     // Frame 1 - Coração pequeno
     double frame1[25] = {
@@ -368,7 +368,7 @@ void init_coracao(int index) {
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
 
-// Função para inicializar os frames do mais
+// Função para inicializar os frames sinal do mais (+)
  void init_mais(int index) {
     // Frame 1 - Centro do mais
     double frame1[25] = {
@@ -421,6 +421,8 @@ void init_coracao(int index) {
     memcpy(animacoes[index].frames[3], frame4, sizeof(frame4));
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
+
+// Função para inicializar os frames do espiral
  void init_espiral(int index) {
     // Frame 1 - Centro
     double frame1[25] = {
@@ -473,7 +475,7 @@ void init_coracao(int index) {
     memcpy(animacoes[index].frames[3], frame4, sizeof(frame4));
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
-
+// Função para inicializar os frames da onda
 void init_onda(int index) {
     // Frame 1 - Onda início
     double frame1[25] = {
@@ -526,7 +528,7 @@ void init_onda(int index) {
     memcpy(animacoes[index].frames[3], frame4, sizeof(frame4));
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
-
+// Função para inicializar os frames do ziguezague
 void init_ziguezague(int index) {
     // Frame 1
     double frame1[25] = {
@@ -579,6 +581,7 @@ void init_ziguezague(int index) {
     memcpy(animacoes[index].frames[3], frame4, sizeof(frame4));
     memcpy(animacoes[index].frames[4], frame5, sizeof(frame5));
 }
+// Função para inicializar os frames da carinha
 void init_carinha(int index) {
     // Frame 1 - Olhos abertos
     double frame1[25] = {
@@ -633,33 +636,33 @@ void init_carinha(int index) {
 }
     
    
-void init_animacoes() {
+void init_animacoes() {         
     // Inicializa animações com frames
     for (int i = 0; i <11; i++) {
         switch(i) {
             case 0:
                 init_quadrado(i);
-                animacoes[i].r = 0.0; animacoes[i].g = 0.0; animacoes[i].b = 1.0;
+                animacoes[i].r = 0.0; animacoes[i].g = 0.0; animacoes[i].b = 1.0; // Azul
                 break;
             case 1:
                 init_x(i);
-                animacoes[i].r = 0.0; animacoes[i].g = 1.0; animacoes[i].b = 0.0;
+                animacoes[i].r = 0.0; animacoes[i].g = 1.0; animacoes[i].b = 0.0; // Verde
                 break;
             case 2: 
                 init_diamante(i);
-                animacoes[i].r = 1.0; animacoes[i].g = 0.0; animacoes[i].b = 0.0;
+                animacoes[i].r = 1.0; animacoes[i].g = 0.0; animacoes[i].b = 0.0; // Vermelho
                 break;
             case 3: 
                 init_circulo(i);
-                animacoes[i].r = 0.8; animacoes[i].g = 0.0; animacoes[i].b = 0.8;
+                animacoes[i].r = 0.8; animacoes[i].g = 0.0; animacoes[i].b = 0.8; // Roxo
                 break;
             case 4: 
                 init_mais(i);
-                animacoes[i].r = 1.0; animacoes[i].g = 1.0; animacoes[i].b = 0.0;
+                animacoes[i].r = 1.0; animacoes[i].g = 1.0; animacoes[i].b = 0.0; // Amarelo
                 break;
             case 5: 
                 init_triangulo(i);
-                animacoes[i].r = 0.0; animacoes[i].g = 1.0; animacoes[i].b = 1.0;
+                animacoes[i].r = 0.0; animacoes[i].g = 1.0; animacoes[i].b = 1.0; // Ciano
                 break;
             case 6: 
                 init_espiral(i);
@@ -679,13 +682,13 @@ void init_animacoes() {
                   break;
             case 10: 
                 init_coracao(i);
-                animacoes[i].r = 1.0; animacoes[i].g = 0.0; animacoes[i].b = 0.0;
+                animacoes[i].r = 1.0; animacoes[i].g = 0.0; animacoes[i].b = 0.0; // Vermelho
                 break;
 
         }
     }
-
-    // Inicializa telas cheias (sem animação)
+    
+    // Inicializa telas cheias (sem animação) para os índices 11 a 14
     for (int i = 11; i < NUM_PADROES; i++) {
         for (int f = 0; f < FRAMES_PER_ANIMATION; f++) {
             for (int p = 0; p < NUM_PIXELS; p++) {
@@ -694,41 +697,33 @@ void init_animacoes() {
         }
     }
 
-    // Define cores das telas cheias
+    // Define cores das telas cheias (Intensidade das cores para as teclas A, B, C e D)
     animacoes[11].r = 0.0; animacoes[11].g = 0.0; animacoes[11].b = 1.0;    // Azul
     animacoes[12].r = 0.8; animacoes[12].g = 0.0; animacoes[12].b = 0.0;    // Vermelho 80%
     animacoes[13].r = 0.0; animacoes[13].g = 0.5; animacoes[13].b = 0.0;    // Verde 50%
     animacoes[14].r = 0.2; animacoes[14].g = 0.2; animacoes[14].b = 0.2;    // Branco 20%
 }
-
-void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b) {
-    for (int16_t i = 0; i < NUM_PIXELS; i++) {
-        valor_led = matrix_rgb(b * desenho[24-i], r * desenho[24-i], g * desenho[24-i]);
-        pio_sm_put_blocking(pio, sm, valor_led);
-    }
-    imprimir_binario(valor_led);
-}
-
+// função principal
 int main() {
     PIO pio = pio0;
     bool ok;
     uint32_t valor_led;
 
     // Configuração do sistema
-    ok = set_sys_clock_khz(128000, false);
-    stdio_init_all();
+    ok = set_sys_clock_khz(128000, false); // 128 MHz
+    stdio_init_all();                      // Inicializa comunicação serial
 
     printf("Iniciando transmissão PIO\n");
-    if (ok) printf("Clock configurado para %ld Hz\n", clock_get_hz(clk_sys));
+    if (ok) printf("Clock configurado para %ld Hz\n", clock_get_hz(clk_sys)); // Imprime clock do sistema
 
     // Configuração do PIO
-    uint offset = pio_add_program(pio, &pio_matrix_program);
+    uint offset = pio_add_program(pio, &pio_matrix_program); // Adiciona programa ao PIO
     uint sm = pio_claim_unused_sm(pio, true);
     pio_matrix_program_init(pio, sm, offset, OUT_PIN);
 
-    // Inicialização
+    // Inicialização das animações em tela cheia
     init_animacoes();
-    proximo_frame = make_timeout_time_ms(FRAME_TIME);
+    proximo_frame = make_timeout_time_ms(FRAME_TIME); // Próximo frame para o padrão atual
 
     while (true) {
         if (absolute_time_diff_us(get_absolute_time(), proximo_frame) <= 0) {
@@ -738,7 +733,15 @@ int main() {
             }
             proximo_frame = make_timeout_time_ms(FRAME_TIME);
         }
-
+        // Função para desenhar o padrão atual na matriz de LEDs
+        void desenho_pio(double *desenho, uint32_t valor_led, PIO pio, uint sm, double r, double g, double b) {
+            for (int16_t i = 0; i < NUM_PIXELS; i++) {
+            valor_led = matrix_rgb(b * desenho[24-i], r * desenho[24-i], g * desenho[24-i]);
+            pio_sm_put_blocking(pio, sm, valor_led);
+             }
+            imprimir_binario(valor_led);
+        }
+        // Desenha o padrão atual na matriz de LEDs
         Animacao *anim_atual = &animacoes[padrao_atual];
         desenho_pio(anim_atual->frames[frame_atual], valor_led, pio, sm, 
                    anim_atual->r, anim_atual->g, anim_atual->b);
