@@ -17,6 +17,24 @@ void set_led_color(PIO pio, uint sm, uint led_index, uint32_t color) {
     }
 }
 
+void animate_leds(PIO pio, uint sm) {
+    // Animação com 5 frames
+    uint32_t colors[5] = {
+        (BRIGHTNESS << 8),               // Azul
+        (BRIGHTNESS << 16),              // Vermelho
+        (BRIGHTNESS << 8) | BRIGHTNESS,  // Ciano
+        (BRIGHTNESS << 16) | BRIGHTNESS, // Magenta
+        BRIGHTNESS                       // Verde
+    };
+
+    for (int frame = 0; frame < 5; frame++) {
+        for (int i = 0; i < NUM_LEDS; i++) {
+            set_led_color(pio, sm, i, colors[frame]);
+            sleep_ms(100); // Tempo entre cada LED para fluidez
+        }
+    }
+}
+
 // Função para configurar os LEDs na cor azul
 void set_leds_blue(PIO pio, uint sm) {
     uint32_t blue_color = (BRIGHTNESS << 8); // RGB: Azul = 0x0000FF, codificado como GGRRBB
