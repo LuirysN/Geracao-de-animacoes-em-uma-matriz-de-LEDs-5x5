@@ -10,8 +10,7 @@ Este projeto utiliza o simulador Wokwi para implementar animações visuais em u
   - CAMILLA MATOS ARAUJO;
   - FREDSON PEREIRA DE OLIVEIRA SANTOS;
   - JACKSON DA SILVA CARNEIRO;
-  - LUIZ FILIPE RIBEIRO DE JESUS;
-  - VITOR SOARES NASCIMENTO LEAL.
+  - LUIZ FILIPE RIBEIRO DE JESUS.
 
 ## Descrição do Projeto
 
