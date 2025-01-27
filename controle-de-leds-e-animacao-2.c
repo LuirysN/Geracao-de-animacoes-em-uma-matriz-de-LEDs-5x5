@@ -70,7 +70,10 @@ int main() {
             set_leds_blue(pio, sm); // Liga os LEDs na cor azul
         } else if (key == 'C' || key == 'c') {
             printf("Tecla C pressionada. Acionando LEDs em vermelho com 80%% de intensidade.\n");
-            set_leds_red_80(pio, sm); // Liga os LEDs na cor vermelha com 80% de intensidade
+            set_leds_red(pio, sm); // Liga os LEDs na cor vermelha com 80% de intensidade
+        } else if (key == '2') {
+            printf("Tecla 2 pressionada. Iniciando animação.\n");
+            animate_leds(pio, sm); // Inicia a animação com 5 frames
         }
     }
 
