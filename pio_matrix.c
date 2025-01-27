@@ -12,8 +12,8 @@
 #define NUM_PIXELS 25
 #define OUT_PIN 7
 #define NUM_PADROES 14
-#define FPS 5
-#define FRAME_TIME (3000/FPS)
+#define FPS 10
+#define FRAME_TIME (5000/FPS)
 #define FRAMES_PER_ANIMATION 5
 #define TRANSITION_TIME 1000
 
