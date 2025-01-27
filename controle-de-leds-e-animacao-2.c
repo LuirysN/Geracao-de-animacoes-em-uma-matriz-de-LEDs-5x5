@@ -60,7 +60,7 @@ int main() {
     uint offset = pio_add_program(pio, &ws2812_program);
     ws2812_program_init(pio, sm, offset, LED_PIN, 800000, false);
 
-     printf("Sistema iniciado. Pressione 'B' para azul ou 'C' para vermelho com 80%% de intensidade.\n");
+     printf("Sistema iniciado. Pressione 'B' para azul, 'C' para vermelho, '2' para animação.\n");
 
     // Loop principal
     while (true) {
