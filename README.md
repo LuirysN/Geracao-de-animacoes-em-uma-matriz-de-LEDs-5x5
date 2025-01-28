@@ -36,4 +36,6 @@ O projeto consiste em:
   - Teclado Matricial 4x4: Interface de entrada para acionar as animações e controles.
   - Matriz de LEDs 5x5 WS2812: Exibição visual das animações.
 
+## Vídeo da simulação do projeto
 
+https://drive.google.com/file/d/1OLeDJhhupCUkCN7RklCBZUDzIgzwj9R0/view?usp=sharing
