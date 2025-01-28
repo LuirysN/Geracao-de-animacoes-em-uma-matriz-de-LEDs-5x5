@@ -35,3 +35,5 @@ Tecla #: Liga todos os LEDs na cor branca, com 20% de intensidade.
 Raspberry Pi Pico W: Microcontrolador responsável pelo controle do sistema.
 Teclado Matricial 4x4: Interface de entrada para acionar as animações e controles.
 Matriz de LEDs 5x5 WS2812: Exibição visual das animações.
+
+
