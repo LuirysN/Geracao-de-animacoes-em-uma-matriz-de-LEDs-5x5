@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
+#include "ws2812.pio.h"
 
 #define LED_PIN 14        // Pino conectado à matriz de LEDs WS2812
 #define NUM_LEDS 25       // Número total de LEDs na matriz 5x5
