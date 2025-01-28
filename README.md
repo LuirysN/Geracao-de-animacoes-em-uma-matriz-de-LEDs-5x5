@@ -5,8 +5,11 @@ Este projeto utiliza o simulador Wokwi para implementar animações visuais em u
 ## EQUIPE
 
 - **Líder:** 
+
   - LUIRYS DO NASCIMENTO SILVA.
+
 - **Desenvolvedores:**
+
   - CAMILLA MATOS ARAUJO;
   - FREDSON PEREIRA DE OLIVEIRA SANTOS;
   - JACKSON DA SILVA CARNEIRO;
